@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pragyan Academy – Bhadrapur, Jhapa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal:       #2a8a8a;
+    --teal-dark:  #1d6b6b;
+    --teal-light: #3aacac;
+    --orange:     #e8832a;
+    --orange-light:#f0a050;
+    --cream:      #faf7f2;
+    --white:      #ffffff;
+    --text:       #1e2a2a;
+    --muted:      #5a7070;
+    --border:     #d4e8e8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; color: var(--text); background: var(--cream); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,107,107,0.97);
+    backdrop-filter: blur(12px);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 20px rgba(26,107,107,0.35);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: white; object-fit: contain; padding: 3px;
+    box-shadow: 0 0 0 2px var(--orange);
+  }
+  .nav-logo-text { color: white; }
+  .nav-logo-text strong { display: block; font-family: 'Playfair Display', serif; font-size: 16px; line-height: 1.1; }
+  .nav-logo-text span { font-size: 11px; color: var(--orange-light); letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--orange-light); }
+  .btn-primary {
+    background: var(--orange); color: white; padding: 10px 22px;
+    border-radius: 50px; font-weight: 700; font-size: 13px;
+    text-decoration: none; transition: all 0.3s; border: none; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(232,131,42,0.35);
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    background: linear-gradient(140deg, var(--teal-dark) 0%, var(--teal) 55%, #3aacac 100%);
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image: repeating-linear-gradient(60deg, white 0, white 1px, transparent 0, transparent 50%);
+    background-size: 28px 28px;
+  }
+  .hero-circle1 {
+    position: absolute; right: -80px; top: -80px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: rgba(232,131,42,0.12); pointer-events: none;
+  }
+  .hero-circle2 {
+    position: absolute; right: 60px; bottom: 60px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: rgba(255,255,255,0.05); pointer-events: none;
+  }
+  .hero-photos {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 52%;
+    overflow: hidden;
+  }
+  .hero-photos img {
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.28;
+    filter: saturate(0.5) hue-rotate(160deg);
+  }
+  .hero-overlay {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 62%;
+    background: linear-gradient(to right, var(--teal-dark) 50%, transparent);
+  }
+  .hero-content {
+    position: relative; z-index: 2; padding: 120px 5% 90px;
+    max-width: 640px;
+    animation: fadeUp 0.9s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(36px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,131,42,0.18); border: 1px solid var(--orange);
+    color: var(--orange-light); padding: 6px 18px; border-radius: 50px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.6rem);
+    font-weight: 900; color: white; line-height: 1.05;
+    margin-bottom: 10px;
+  }
+  .hero h1 span { color: var(--orange-light); }
+  .hero-tagline { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 14px; font-style: italic; }
+  .hero-location { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.5); font-size: 14px; margin-bottom: 36px; }
+  .hero-location::before { content: "📍"; }
+  .hero-stats { display: flex; gap: 40px; margin-bottom: 40px; }
+  .stat { text-align: left; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; color: var(--orange-light); }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-outline-hero {
+    background: transparent; color: white; padding: 14px 32px;
+    border-radius: 50px; font-weight: 700; font-size: 15px;
+    text-decoration: none; transition: all 0.3s;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .btn-outline-hero:hover { border-color: white; background: rgba(255,255,255,0.08); }
+  .btn-hero-primary {
+    background: var(--orange); color: white; padding: 14px 32px;
+    border-radius: 50px; font-weight: 700; font-size: 15px;
+    text-decoration: none; transition: all 0.3s;
+    box-shadow: 0 6px 24px rgba(232,131,42,0.45);
+  }
+  .btn-hero-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  /* SECTION */
+  section { padding: 80px 5%; }
+  .section-tag { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.7rem); font-weight: 700; color: var(--teal-dark); line-height: 1.2; margin-bottom: 16px; }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.75; }
+
+  /* ABOUT */
+  .about { background: white; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .about-imgs img { width: 100%; height: 180px; object-fit: cover; border-radius: 14px; box-shadow: 0 8px 24px rgba(42,138,138,0.12); }
+  .about-imgs img:first-child { grid-column: 1/-1; height: 230px; border-radius: 16px; }
+  .values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .val-card { background: #f0fafa; border-radius: 12px; padding: 16px; border-left: 3px solid var(--orange); }
+  .val-card strong { display: block; color: var(--teal-dark); font-size: 14px; margin-bottom: 4px; }
+  .val-card p { font-size: 13px; color: var(--muted); }
+
+  /* PROGRAMS */
+  .programs { background: var(--cream); }
+  .programs-inner { max-width: 1100px; margin: 0 auto; }
+  .program-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+  .prog-card {
+    background: white; border-radius: 18px; padding: 32px 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(42,138,138,0.06);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .prog-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--teal), var(--orange)); }
+  .prog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(42,138,138,0.14); }
+  .prog-icon { font-size: 2.2rem; margin-bottom: 16px; }
+  .prog-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--teal-dark); margin-bottom: 10px; }
+  .prog-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .prog-levels { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .level-tag { background: #e8f5f5; color: var(--teal-dark); font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 50px; }
+
+  /* LEADERSHIP */
+  .leadership { background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%); }
+  .leadership .section-title { color: white; }
+  .leadership .section-tag { color: var(--orange-light); }
+  .leadership .section-sub { color: rgba(255,255,255,0.55); }
+  .leaders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; max-width: 1000px; }
+  .leader-card {
+    background: rgba(255,255,255,0.08); border-radius: 20px; padding: 36px 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    text-align: center; transition: all 0.3s;
+    backdrop-filter: blur(6px);
+  }
+  .leader-card:hover { background: rgba(255,255,255,0.13); transform: translateY(-5px); }
+  .leader-avatar {
+    width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 18px;
+    background: linear-gradient(135deg, var(--orange), var(--teal-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: white;
+    border: 3px solid var(--orange-light);
+    box-shadow: 0 6px 24px rgba(232,131,42,0.35);
+  }
+  .leader-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: white; margin-bottom: 6px; }
+  .leader-role { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--orange-light); margin-bottom: 12px; }
+  .leader-card p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* GALLERY */
+  .gallery { background: white; }
+  .gallery-inner { max-width: 1100px; margin: 0 auto; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+  .gallery-item { position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; }
+  .gallery-item img { width: 100%; height: 100%; min-height: 185px; object-fit: cover; transition: transform 0.5s; display: block; }
+  .gallery-item:hover img { transform: scale(1.07); }
+  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(29,107,107,0.5), transparent); opacity: 0; transition: opacity 0.3s; }
+  .gallery-item:hover::after { opacity: 1; }
+
+  /* CONTACT */
+  .contact { background: var(--cream); }
+  .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+  .contact-info-item { display: flex; gap: 14px; margin-bottom: 22px; align-items: flex-start; }
+  .contact-icon { width: 44px; height: 44px; background: var(--teal-dark); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .contact-info-item strong { display: block; color: var(--teal-dark); font-weight: 700; margin-bottom: 3px; }
+  .contact-info-item span { font-size: 14px; color: var(--muted); }
+  .contact-form { background: white; border-radius: 20px; padding: 36px; box-shadow: 0 8px 32px rgba(42,138,138,0.1); border: 1px solid var(--border); }
+  .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--teal-dark); margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 700; color: var(--teal-dark); margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 12px 16px; border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 14px;
+    outline: none; transition: border-color 0.2s; background: var(--cream);
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--teal); }
+  .form-group textarea { resize: vertical; min-height: 88px; }
+  .btn-submit {
+    width: 100%; background: linear-gradient(to right, var(--teal), var(--orange));
+    color: white; padding: 14px; border-radius: 50px;
+    font-weight: 700; font-size: 15px; border: none; cursor: pointer;
+    transition: opacity 0.3s; letter-spacing: 0.5px;
+  }
+  .btn-submit:hover { opacity: 0.88; }
+
+  /* FOOTER */
+  footer {
+    background: var(--teal-dark); color: rgba(255,255,255,0.5);
+    padding: 44px 5%; text-align: center;
+    border-top: 3px solid var(--orange);
+  }
+  .footer-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
+  .footer-logo img { width: 40px; height: 40px; border-radius: 50%; background: white; object-fit: contain; padding: 3px; }
+  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; }
+  .footer-logo-text span { color: var(--orange-light); }
+  footer p { font-size: 13px; }
+  .footer-links { display: flex; justify-content: center; gap: 24px; margin: 14px 0; flex-wrap: wrap; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--orange-light); }
+  .footer-divider { width: 60px; height: 2px; background: var(--orange); margin: 16px auto; border-radius: 2px; opacity: 0.5; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-photos { width: 100%; }
+    .hero-overlay { width: 100%; background: rgba(29,107,107,0.88); }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; }
+    .program-cards, .leaders-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: span 2; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <!-- Replace the src below with your actual logo file path or URL -->
+    <img src="logo.png" alt="Pragyan Academy Logo">
+    <div class="nav-logo-text">
+      <strong>Pragyan Academy</strong>
+      <span>Bhadrapur, Jhapa</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#leadership">Leadership</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-primary">Enquire Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-circle1"></div>
+  <div class="hero-circle2"></div>
+  <div class="hero-photos">
+    <!-- Replace src with your school photo -->
+    <img src="photo1.jpg" alt="Pragyan Academy Students">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Est. in Jhapa, Nepal</div>
+    <h1>Pragyan<br><span>Academy</span></h1>
+    <p class="hero-tagline">Igniting Minds. Inspiring Futures.</p>
+    <div class="hero-location">Bhadrapur, Jhapa, Nepal</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Grade Levels</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Students</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Dedication</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="#programs" class="btn-hero-primary">Explore Programs</a>
+      <a href="#leadership" class="btn-outline-hero">Meet Our Team</a>
+    </div>
+  </div>
+  <!-- Wave separator -->
+  <div style="position:absolute;bottom:-2px;left:0;right:0;">
+    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;">
+      <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#ffffff"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-imgs">
+      <!-- Replace src values with your school photos -->
+      <img src="photo2.jpg" alt="School campus">
+      <img src="photo3.jpg" alt="Students">
+      <img src="photo4.jpg" alt="Students group">
+    </div>
+    <div>
+      <p class="section-tag">Who We Are</p>
+      <h2 class="section-title">A Legacy of Learning in Bhadrapur</h2>
+      <p class="section-sub">Pragyan Academy stands as one of Jhapa's most trusted educational institutions, offering a nurturing environment where students from Early Childhood to Grade 12 thrive academically, socially, and personally.</p>
+      <p class="section-sub" style="margin-top:14px;">Rooted in the values of integrity, curiosity, and excellence, we prepare every learner to meet the challenges of a rapidly changing world — with confidence and compassion.</p>
+      <div class="values">
+        <div class="val-card"><strong>🌟 Excellence</strong><p>Highest academic standards in every classroom.</p></div>
+        <div class="val-card"><strong>🤝 Community</strong><p>A welcoming family for students & parents.</p></div>
+        <div class="val-card"><strong>🧠 Innovation</strong><p>Modern methods, curious minds, bold ideas.</p></div>
+        <div class="val-card"><strong>🌱 Growth</strong><p>Holistic development beyond textbooks.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs" id="programs">
+  <div class="programs-inner">
+    <p class="section-tag">Academic Programs</p>
+    <h2 class="section-title">Comprehensive Education,<br>Every Step of the Way</h2>
+    <p class="section-sub">From early learners to young adults preparing for university — Pragyan Academy offers structured, quality education across all levels.</p>
+    <div class="program-cards">
+      <div class="prog-card">
+        <div class="prog-icon">🌸</div>
+        <h3>Primary School</h3>
+        <p>Building a strong foundation in literacy, numeracy, and curiosity through engaging, activity-based learning.</p>
+        <div class="prog-levels">
+          <span class="level-tag">Grade 1</span>
+          <span class="level-tag">Grade 2</span>
+          <span class="level-tag">Grade 3</span>
+          <span class="level-tag">Grade 4</span>
+          <span class="level-tag">Grade 5</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">📚</div>
+        <h3>Secondary School</h3>
+        <p>Deepening knowledge across subjects with critical thinking, project work, and character development.</p>
+        <div class="prog-levels">
+          <span class="level-tag">Grade 6</span>
+          <span class="level-tag">Grade 7</span>
+          <span class="level-tag">Grade 8</span>
+          <span class="level-tag">Grade 9</span>
+          <span class="level-tag">Grade 10</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🎓</div>
+        <h3>Higher Secondary (+2)</h3>
+        <p>Specialized streams to prepare students for university admission and future careers with rigor and focus.</p>
+        <div class="prog-levels">
+          <span class="level-tag">Grade 11</span>
+          <span class="level-tag">Grade 12</span>
+          <span class="level-tag">Science</span>
+          <span class="level-tag">Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="leadership" id="leadership">
+  <p class="section-tag">Our Leadership</p>
+  <h2 class="section-title">Meet the Pillars of Pragyan</h2>
+  <p class="section-sub">Guided by experienced educators and visionary leaders committed to excellence in education.</p>
+  <div class="leaders-grid">
+    <div class="leader-card">
+      <div class="leader-avatar">SP</div>
+      <h3>Subha Pandey</h3>
+      <div class="leader-role">Principal</div>
+      <p>Visionary leader steering Pragyan Academy towards educational excellence and holistic student development.</p>
+    </div>
+    <div class="leader-card">
+      <div class="leader-avatar">ShP</div>
+      <h3>Shekhar Pandey</h3>
+      <div class="leader-role">Academic Head</div>
+      <p>Dedicated to crafting a rigorous and inspiring academic curriculum that brings out the best in every student.</p>
+    </div>
+    <div class="leader-card">
+      <div class="leader-avatar">PK</div>
+      <h3>Puspa Raj Kafley</h3>
+      <div class="leader-role">Vice Principal</div>
+      <p>Ensuring smooth school operations and fostering a disciplined, caring environment for learning and growth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-inner">
+    <p class="section-tag">School Life</p>
+    <h2 class="section-title">A Glimpse of Pragyan</h2>
+    <p class="section-sub">Our students, our pride — moments that define the spirit of Pragyan Academy.</p>
+    <div class="gallery-grid">
+      <!-- Replace src values with your actual photo filenames -->
+      <div class="gallery-item"><img src="photo1.jpg" alt="Students group photo 1"></div>
+      <div class="gallery-item"><img src="photo2.jpg" alt="Students group photo 2"></div>
+      <div class="gallery-item"><img src="photo3.jpg" alt="Students group photo 3"></div>
+      <div class="gallery-item"><img src="photo4.jpg" alt="Students group photo 4"></div>
+      <div class="gallery-item" style="grid-column: span 2;">
+        <img src="photo2.jpg" alt="Wide campus view" style="min-height:180px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-tag">Get In Touch</p>
+      <h2 class="section-title">Visit or<br>Contact Us</h2>
+      <p class="section-sub">We'd love to welcome you to Pragyan Academy. Reach out for admissions, queries, or a campus visit.</p>
+      <div style="margin-top:36px;">
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div><strong>Address</strong><span>Bhadrapur, Jhapa, Province No. 1, Nepal</span></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📞</div>
+          <div><strong>Phone</strong><span>+977-023-XXXXXX</span></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">✉️</div>
+          <div><strong>Email</strong><span>info@pragyanacademy.edu.np</span></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">🕐</div>
+          <div><strong>School Hours</strong><span>Sun–Fri: 9:00 AM – 4:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Send us a Message</h3>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Full name">
+      </div>
+      <div class="form-group">
+        <label>Phone / Email</label>
+        <input type="text" placeholder="Contact details">
+      </div>
+      <div class="form-group">
+        <label>Inquiry About</label>
+        <select>
+          <option>Admissions</option>
+          <option>Academic Programs</option>
+          <option>Fees &amp; Scholarships</option>
+          <option>General Query</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="alert('Thank you! We will contact you soon.')">Send Message ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="Pragyan Academy Logo">
+    <div class="footer-logo-text">Pragyan <span>Academy</span></div>
+  </div>
+  <p>Bhadrapur, Jhapa, Nepal &nbsp;|&nbsp; Classes from Early Grade to Grade XII</p>
+  <div class="footer-divider"></div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#programs">Programs</a>
+    <a href="#leadership">Leadership</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p style="font-size:12px;margin-top:8px;">© 2026 Pragyan Academy. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
